@@ -1,0 +1,10 @@
+default_context:
+    project_name: Basic
+    token_name: MyToken
+    token_symbol: TEST
+    token_decimals: 8
+    premint: y
+    premint_amount: 1000 * 10 ** 8
+    owner: y
+    minter: y
+    burnable: y

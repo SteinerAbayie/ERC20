@@ -1,0 +1,9 @@
+default_context:
+    project_name: Mintable
+    token_name: MyToken
+    token_symbol: TEST
+    token_decimals: 12
+    premint: n
+    owner: y
+    minter: y
+    burnable: n

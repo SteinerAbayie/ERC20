@@ -1,0 +1,33 @@
+on: ["push", "pull_request"]
+
+name: Test
+
+jobs:
+  validate-template:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        template:
+        - Basic
+        - Mintable
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ApeWorX/github-action@v1
+    - run: ape plugins install -U template
+      # NOTE: Temporary until bug is fixed with installation
+      continue-on-error: true
+    - run: ape template . --config-file tests/${{ matrix.template }}.yaml --no-input
+    - name: Install plugins
+      run: |
+        cd ${{ matrix.template }}
+        ape plugins install -U .
+      # NOTE: Temporary until bug is fixed with installation
+      continue-on-error: true
+    - name: Compile contracts
+      run: |
+        cd ${{ matrix.template }}
+        ape compile --size
+    - name: Run tests
+      run: |
+        cd ${{ matrix.template }}
+        ape test -s
